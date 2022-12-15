@@ -12,7 +12,6 @@ class Map:
         self.height = int(self.height)
         self.width = int(self.width)
 
-        # Build map grid
         grid = []
         next_line = map_file.readline().strip()
         while next_line:

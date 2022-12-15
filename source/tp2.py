@@ -1,5 +1,6 @@
 import math
-from mdp import MDP
+from mdp import QLearning
+import json
 
 STATES = ['.', ';', '+', "x", "O", "@"]
 ACTIONS = ['^', '<', '>', 'v']
@@ -9,14 +10,34 @@ POSITIVE_REWARDS = {'.': 3.0, ';': 1.5, '+': 1.0, 'x': 0.0, 'O': 10.0, '@': -mat
 
 if __name__ == "__main__":
 
-    alpha = 0.1
-    gamma = 0.9
-    epsilon = 0.1
-    iter = 300000
-    map_path = "maps/choices.map"
+    #loading config file
+    with open("appconfig.json", encoding='utf-8') as config_file:
+        config = json.load(config_file)
 
-    mdp = MDP(STATES, ACTIONS, REWARDS, alpha, gamma,
-                   map_path, iter, epsilon, qsumf=None, mode="standard")
-    mdp.qlearning()
+    #loading hyperparameters
+    alpha = config['HyperParameters']['alpha']
+    gamma = config['HyperParameters']['gamma']
+    epsilon = config['HyperParameters']['epsilon']
+
+    #loading run mode settings
+    iterations = config['RunMode']['iterations']
+    starting_coordinates = (config['RunMode']['initial_y'], config['RunMode']['initial_x'])
+    run_mode = config['RunMode']['run_mode']
+    run_mode = "standard" if run_mode not in ["positive_rewards", "stochastic"] else run_mode
+
+    #loading paths
+    map_path = "maps/" + config['FileNames']['map_name']
+
+    #setting rewards dictionary according to the run mode
+    rewards = POSITIVE_REWARDS if run_mode == "positive_rewards" else REWARDS
+
+    #creating model based on parameters above
+    model = QLearning(STATES, ACTIONS, rewards,
+                      alpha, gamma, map_path, iterations,
+                      epsilon, starting_coordinates, mode=run_mode)
+
+    #training model
+    model.fit()
+
 
 

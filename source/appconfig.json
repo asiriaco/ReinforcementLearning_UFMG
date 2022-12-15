@@ -1,0 +1,17 @@
+{
+  "HyperParameters": {
+    "alpha": 0.1,
+    "gamma": 0.9,
+    "epsilon": 0.1
+  },
+  "RunMode": {
+    "iterations": 100000,
+    "run_mode": "standard",
+    "initial_x": 0,
+    "initial_y": 3
+  },
+  "FileNames": {
+    "map_name": "choices.map"
+  }
+
+}
