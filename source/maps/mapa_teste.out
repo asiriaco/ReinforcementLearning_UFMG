@@ -1,0 +1,11 @@
+maps/mapa_teste.map standard 0 3 100000
+>>>>O
+^@@^x
+v@@^<
+>>>^<
+
+maps/mapa_teste.map stochastic 0 3 100000
+>>>>O
+^@@^x
+^@@^v
+^>>^<
