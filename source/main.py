@@ -1,5 +1,5 @@
 import math
-from mdp import QLearning
+from rl_models import QLearning
 import json
 
 STATES = ['.', ';', '+', "x", "O", "@"]

@@ -36,3 +36,10 @@ class Map:
             return self.grid[x, y]
         except IndexError:
             print('width {}, height {}\n'.format(self.width, self.height) + "x: {}, y: {} are out of the bounds".format(x, y) + "\n")
+
+    def create_map_Qmatrix(self, actions):
+        height, width = self.get_height(), self.get_width()
+
+        return [[dict(zip([a for a in actions],
+                          [0. for x in range(len(actions))]))
+                 for w in range(width)] for h in range(height)]
